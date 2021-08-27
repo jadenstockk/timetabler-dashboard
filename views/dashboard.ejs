@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="icon" type="image/png" href="images/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+</head>
+
+<body>
+    <%- include("partials/header", { title: "Dashboard" }) %>
+
+    <div class="main">
+        <div class="topbar">
+            <div class="toggle" onclick="toggleMenu()"></div>
+            <div class="search">
+                <label>
+                    <input type="text" placeholder="Search Here">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                </label>
+            </div>
+            <div class="user">
+                <img src="images/user.png">
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            let tasks = '<%-JSON.stringify(tasks)%>';
+            tasks = JSON.parse(tasks);
+        </script>
+
+        <div class="cardBox">
+            <div class="card">
+                <div>
+                    <div class="numbers"><%= stats.tasks.soon %></div>
+                    <div class="cardName">Tasks Due Soon</div>
+                </div>
+                <div class="iconBox">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i>
+                </div>
+            </div>
+            <div class="card">
+                <div>
+                    <div class="numbers"><%= stats.tasks.total %></div>
+                    <div class="cardName">Tasks Outstanding in Total</div>
+                </div>
+                <div class="iconBox">
+                    <i class="fa fa-list" aria-hidden="true"></i>
+                </div>
+            </div>
+            <div class="card">
+                <div>
+                    <div class="numbers"><%= stats.tasks.completedToday %></div>
+                    <div class="cardName">Tasks Completed Today</div>
+                </div>
+                <div class="iconBox">
+                    <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                </div>
+            </div>
+            <div class="card">
+                <div>
+                    <div class="numbers"><%= stats.subjects %></div>
+                    <div class="cardName">Subjects</div>
+                </div>
+                <div class="iconBox">
+                    <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="details">
+
+            <div class="upcomingSubjects">
+                <div class="cardHeader">
+                    <h2>Lessons</h2>
+                    <a href="#" class="btn">View Timetable</a>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <td>Subject</td>
+                            <td>Time</td>
+                            <td>Length</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="subjectColorBox"
+                                    style="background: rgba(255, 204, 0, 0.919);">English</span></td>
+                            <td>10:20 - 10:55</td>
+                            <td>35 minutes</td>
+                        </tr>
+                        <tr>
+                            <td><span class="subjectColorBox" style="background: rgb(255, 159, 175);">Mathematics</span>
+                            </td>
+                            <td>11:05 - 11:40</td>
+                            <td>35 minutes</td>
+                        </tr>
+                        <tr>
+                            <td><span class="subjectColorBox" style="background: rgb(138, 0, 138)">History</span>
+                            </td>
+                            <td>11:50 - 12:40</td>
+                            <td>35 minutes</td>
+                        </tr>
+                        <tr>
+                            <td><span class="subjectColorBox" style="background: rgb(140, 233, 0)">Physical
+                                    Science</span></td>
+                            <td>Tomorrow @ 10:20</td>
+                            <td>35 minutes</td>
+                        </tr>
+                        <tr>
+                            <td><span class="subjectColorBox" style="background: rgb(119, 119, 119)">Life
+                                    Skills</span></td>
+                            <td>Tomorrow @ 11:05</td>
+                            <td>35 minutes</td>
+                        </tr>
+                        <tr>
+                            <td><span class="subjectColorBox" style="background: rgb(255, 19, 19)">Afrikaans</span>
+                            </td>
+                            <td>Tomorrow @ 11:50</td>
+                            <td>35 minutes</td>
+                        </tr>
+                        <tr>
+                            <td><span class="subjectColorBox"
+                                    style="background: rgba(255, 204, 0, 0.919);">English</span></td>
+                            <td>10:20 - 10:55</td>
+                            <td>35 minutes</td>
+                        </tr>
+                        <tr>
+                            <td><span class="subjectColorBox" style="background: rgb(255, 159, 175);">Mathematics</span>
+                            </td>
+                            <td>11:05 - 11:40</td>
+                            <td>35 minutes</td>
+                        </tr>
+                        <tr>
+                            <td><span class="subjectColorBox" style="background: rgb(138, 0, 138)">History</span>
+                            </td>
+                            <td>11:50 - 12:40</td>
+                            <td>35 minutes</td>
+                        </tr>
+                        <tr>
+                            <td><span class="subjectColorBox" style="background: rgb(140, 233, 0)">Physical
+                                    Science</span></td>
+                            <td>Tomorrow @ 10:20</td>
+                            <td>35 minutes</td>
+                        </tr>
+                        <tr>
+                            <td><span class="subjectColorBox" style="background: rgb(119, 119, 119)">Life
+                                    Skills</span></td>
+                            <td>Tomorrow @ 11:05</td>
+                            <td>35 minutes</td>
+                        </tr>
+                        <tr>
+                            <td><span class="subjectColorBox" style="background: rgb(255, 19, 19)">Afrikaans</span>
+                            </td>
+                            <td>Tomorrow @ 11:50</td>
+                            <td>35 minutes</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="upcomingReminders">
+                <div class="cardHeader">
+                    <h2>Tasks</h2>
+                    <a href="#" class="btn">View Tasks</a>
+                </div>
+
+                <ul id="tasks" class="taskList">
+
+                    <% tasks.forEach((task, index) => { if (index > 5) return; %>
+
+                    <li>
+                        <p class="taskTitle"><%= task.title %></p>
+                        <p class="taskInfo"><i class="fa fa-calendar" aria-hidden="true"></i> <span class="taskDate"><%= task.due.string %></span></p>
+                    </li>
+
+                    <% }); 
+                        
+                    if (tasks.length < 1) { %>
+
+                    <p id="noTasksMsg" class="extraTasks">You have no outstanding tasks</p>
+
+                    <% } else { %>
+
+                    <p id="noTasksMsg" class="extraTasks" style="display: none;">You have no outstanding tasks</p>
+
+                    <% }; %>
+                </ul>
+
+                <div class="extraTasks">
+                    <a href="#"><%= tasks.length > 6 ? `${tasks.length - 5} more tasks` : ''%></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script type="text/javascript" src="js/dashboard.js"></script>
+</body>
+
+</html>

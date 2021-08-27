@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Timetabler - Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" type="image/png" href="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/calendar-512.png" />
+    <link rel="stylesheet" type="text/css"
+        href="https://colorlib.com/etc/lf/Login_v10/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://colorlib.com/etc/lf/Login_v10/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://colorlib.com/etc/lf/Login_v10/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+    <link rel="stylesheet" type="text/css" href="https://colorlib.com/etc/lf/Login_v10/vendor/animate/animate.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://colorlib.com/etc/lf/Login_v10/vendor/css-hamburgers/hamburgers.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://colorlib.com/etc/lf/Login_v10/vendor/animsition/css/animsition.min.css">
+    <link rel="stylesheet" type="text/css" href="https://colorlib.com/etc/lf/Login_v10/vendor/select2/select2.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://colorlib.com/etc/lf/Login_v10/vendor/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" type="text/css" href="https://colorlib.com/etc/lf/Login_v10/css/util.css">
+    <link rel="stylesheet" type="text/css" href="https://colorlib.com/etc/lf/Login_v10/css/main.css">
+
+    <meta name="robots" content="noindex, follow">
+</head>
+
+<body>
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100 p-t-50 p-b-90">
+                <form id="login" class="login100-form validate-form flex-sb flex-w">
+                    <span class="login100-form-title p-b-51">
+                        Welcome Back!
+                    </span>
+
+                    <div id="usernameerror" class="wrap-input100 validate-input m-b-16" data-validate="Incorrect credentials">
+                        <input id="email" class="input100" type="text" name="email" placeholder="Email">
+                        <span class="focus-input100"></span>
+                    </div>
+                    <div id="passworderror" class="wrap-input100 validate-input m-b-16" data-validate="Incorrect credentials">
+                        <input id="password" class="input100" type="password" name="pass" placeholder="Password">
+                        <span class="focus-input100"></span>
+                    </div>
+                    <div class="flex-sb-m w-full p-t-3 p-b-24">
+                        <div>
+                            <a href="/register" class="txt1">
+                                New here? Sign Up
+                            </a>
+                        </div>
+                    </div>
+                    <div class="container-login100-form-btn m-t-17">
+                        <button id="submit" class="login100-form-btn">
+                            Login
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="dropDownSelect1" style="padding-bottom: 100pt;"></div>
+
+    <script>
+        const form = document.getElementById('login')
+        form.addEventListener('submit', login)
+
+        async function login(event) {
+            const loginButton = document.getElementById('submit').disabled = true;
+
+            event.preventDefault()
+            const email = document.getElementById('email').value
+            const password = document.getElementById('password').value
+
+            const result = await fetch('/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email,
+                    password
+                })
+            }).then((res) => res.json())
+
+            console.log(result.status);
+
+            if (result.status === 'ok') {
+                window.location = "/timetable";
+
+            } else {
+                //window.location = "/login";
+                document.getElementById('passworderror').className = 'wrap-input100 validate-input m-b-16 alert-validate';
+                document.getElementById('usernameerror').className = 'wrap-input100 validate-input m-b-16 alert-validate';
+                document.getElementById('usernameerror').onclick = "window.location = '/login'";
+                //alert(result.error);
+            }
+        }
+    </script>
+
+    <script src="https://colorlib.com/etc/lf/Login_v10/vendor/jquery/jquery-3.2.1.min.js"></script>
+
+    <script src="https://colorlib.com/etc/lf/Login_v10/vendor/animsition/js/animsition.min.js"></script>
+
+    <script src="https://colorlib.com/etc/lf/Login_v10/vendor/bootstrap/js/popper.js"></script>
+    <script src="https://colorlib.com/etc/lf/Login_v10/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <script src="https://colorlib.com/etc/lf/Login_v10/vendor/select2/select2.min.js"></script>
+
+    <script src="https://colorlib.com/etc/lf/Login_v10/vendor/daterangepicker/moment.min.js"></script>
+    <script src="https://colorlib.com/etc/lf/Login_v10/vendor/daterangepicker/daterangepicker.js"></script>
+
+    <script src="https://colorlib.com/etc/lf/Login_v10/vendor/countdowntime/countdowntime.js"></script>
+
+    <script src="https://colorlib.com/etc/lf/Login_v10/js/main.js"></script>
+
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-23581568-13');
+    </script>
+</body>
+
+</html>
